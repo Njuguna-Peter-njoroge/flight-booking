@@ -1,0 +1,30 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "12345678"
+      MYSQL_DATABASE: flight_booking_db
+      MYSQL_USER: flight_user
+      MYSQL_PASSWORD: "flight_password123"
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  web:
+    image: php:8.2-apache
+    container_name: flight_booking_web
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - ./flight-booking:/var/www/html
+    command: >
+      bash -c "docker-php-ext-install pdo pdo_mysql && apache2-foreground"
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:

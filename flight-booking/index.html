@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kilele Airways</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{--display:'Manrope','Segoe UI',system-ui,sans-serif;--body:'Inter','Segoe UI',system-ui,sans-serif;--bg:#EDF1F3;--surface:#fff;--ink:#0E2233;--muted:#5A6B78;--line:#D3DCE2;--action:#0E3A54;--on-action:#fff;--amber:#F2B01E;--ok:#1F7A52;--okbg:#DDF2E8;--warn:#8A5A00;--warnbg:#FCEBC5;--bad:#A8332A;--badbg:#F8DAD6;--taken:#E3E9ED;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0A1822;--surface:#10242F;--ink:#E6EEF2;--muted:#93A5B1;--line:#223A48;--action:#5BB5D1;--on-action:#06141C;--ok:#7FD6A8;--okbg:#14382A;--warn:#F2C45E;--warnbg:#3A2F10;--bad:#F0968D;--badbg:#3E1B18;--taken:#1A303D;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0A1822;--surface:#10242F;--ink:#E6EEF2;--muted:#93A5B1;--line:#223A48;--action:#5BB5D1;--on-action:#06141C;--ok:#7FD6A8;--okbg:#14382A;--warn:#F2C45E;--warnbg:#3A2F10;--bad:#F0968D;--badbg:#3E1B18;--taken:#1A303D;color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+[hidden]{display:none!important}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.5;min-height:100vh}
+h1,h2,h3,.narrow{font-family:var(--display)}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+header{background:var(--surface);border-bottom:1px solid var(--line)}
+.bar{max-width:1120px;margin:auto;padding:14px 24px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.brand{font:700 22px var(--display);display:flex;align-items:center;gap:10px;margin-right:auto}
+.brand svg{width:28px;height:28px;color:var(--action)}
+nav{display:flex;gap:4px}
+nav button{background:none;border:0;color:var(--muted);font:600 15px var(--body);padding:10px 14px;border-radius:8px;cursor:pointer}
+nav button[aria-selected="true"]{color:var(--ink);box-shadow:inset 0 -3px 0 var(--amber)}
+nav button:hover{color:var(--ink)}
+main{max-width:1120px;margin:auto;padding:32px 24px 64px}
+.panel{display:none}.panel.on{display:block}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:24px 0}
+.hero h1{font-size:clamp(36px,6vw,62px);line-height:.98;font-weight:700;letter-spacing:-.01em}
+.hero p{margin:20px 0 28px;color:var(--muted);max-width:46ch;font-size:18px}
+.route{background:var(--action);border-radius:20px;padding:28px;color:var(--on-action)}
+.route svg{width:100%;height:auto;display:block}
+.route .cities{display:flex;justify-content:space-between;font:700 28px var(--display);margin-top:6px}
+.route small{display:block;font:400 13px var(--body);opacity:.8}
+.btn{background:var(--action);color:var(--on-action);border:0;border-radius:10px;padding:13px 22px;font:700 16px var(--body);cursor:pointer}
+.btn:hover{filter:brightness(1.12)}.btn:disabled{opacity:.4;cursor:not-allowed;filter:none}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.row-btns{display:flex;gap:12px;flex-wrap:wrap}
+h2{font-size:34px;font-weight:700;margin-bottom:6px}
+.sub{color:var(--muted);margin-bottom:24px}
+.auth{max-width:420px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:28px;margin-top:16px}
+.auth h3{font-size:22px;margin-bottom:16px}
+label{display:block;font-weight:600;font-size:14px;margin-bottom:6px}
+input{width:100%;padding:12px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit;margin-bottom:16px}
+.auth .btn{width:100%}
+.book{display:grid;grid-template-columns:1fr 340px;gap:28px;align-items:start}
+.flights{display:grid;gap:10px}
+.flight{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;text-align:left;width:100%;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:16px 20px;cursor:pointer;color:inherit;font:inherit}
+.flight:hover{border-color:var(--action)}
+.flight[aria-pressed="true"]{border-color:var(--action);box-shadow:0 0 0 3px color-mix(in srgb,var(--action) 25%,transparent)}
+.flight .no{font:700 20px var(--display)}
+.flight .path{font-weight:600}.flight .path span{color:var(--muted);font-weight:400}
+.flight .time{color:var(--muted);font-size:14px;text-align:right}
+.cabin{margin-top:28px;background:var(--surface);border:1px solid var(--line);border-radius:140px 140px 20px 20px;padding:64px 32px 28px;max-width:420px}
+.cabin h3{text-align:center;font-size:20px;margin-bottom:4px}
+.legend{display:flex;justify-content:center;gap:16px;font-size:13px;color:var(--muted);margin:6px 0 18px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:4px;vertical-align:-1px;margin-right:5px;border:1.5px solid var(--line)}
+.legend .s{background:var(--amber);border-color:var(--amber)}.legend .t{background:var(--taken)}
+.seats{display:grid;grid-template-columns:1fr 1fr 2.4rem 1fr 1fr;gap:10px;align-items:center;text-align:center}
+.rn{font-size:12px;color:var(--muted)}
+.seat{aspect-ratio:1;border-radius:8px 8px 4px 4px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:700 14px var(--body);cursor:pointer}
+.seat:hover:not(:disabled){border-color:var(--action)}
+.seat.sel{background:var(--amber);border-color:var(--amber);color:#0E2233}
+.seat:disabled{background:var(--taken);border-color:var(--taken);color:transparent;cursor:not-allowed}
+.pass{position:sticky;top:16px;background:var(--surface);border:1px solid var(--line);border-left:8px solid var(--amber);border-radius:14px;overflow:hidden}
+.pass .top{padding:20px 20px 16px}
+.pass .lbl{font-size:12px;color:var(--muted)}
+.pass .big{font:700 30px var(--display);line-height:1.1}
+.pass .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.pass .tear{border-top:2px dashed var(--line);padding:16px 20px;position:relative}
+.pass .tear::before,.pass .tear::after{content:"";position:absolute;top:-11px;width:20px;height:20px;border-radius:50%;background:var(--bg)}
+.pass .tear::before{left:-10px}.pass .tear::after{right:-10px}
+.pass .btn{width:100%}
+.pnr{font:700 34px var(--display);letter-spacing:.08em;color:var(--ok)}
+.ok{background:var(--okbg);color:var(--ok);padding:10px 14px;border-radius:8px;font-weight:600;font-size:14px;margin-bottom:12px}
+.tbl{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th,td{padding:14px 18px;text-align:left;border-bottom:1px solid var(--line)}
+th{font-size:13px;color:var(--muted);font-weight:600}
+tr:last-child td{border-bottom:0}
+td.no{font:700 18px var(--display)}
+.chip{display:inline-block;padding:3px 12px;border-radius:999px;font-size:13px;font-weight:700}
+.chip.on-time,.chip.scheduled{background:var(--okbg);color:var(--ok)}
+.chip.boarding,.chip.delayed{background:var(--warnbg);color:var(--warn)}
+.chip.cancelled{background:var(--badbg);color:var(--bad)}
+.chip.departed,.chip.arrived{background:var(--taken);color:var(--muted)}
+.empty{color:var(--muted);padding:20px 0}
+.demo{background:var(--warnbg);color:var(--warn);border-radius:10px;padding:12px 16px;margin-bottom:20px;font-weight:600;font-size:14px}
+.err{color:var(--bad);font-size:14px;font-weight:600;margin:-6px 0 12px}
+.who{display:flex;align-items:center;gap:12px;font-weight:600;font-size:14px}
+.btn.sm{padding:8px 14px;font-size:14px}
+@media (max-width:860px){.hero,.book{grid-template-columns:1fr}.pass{position:static}.cabin{margin-inline:auto}.bar{padding:12px 16px}main{padding:24px 16px 48px}}
+@media (prefers-reduced-motion:no-preference){.route path.arc{stroke-dasharray:6 8;animation:dash 2.4s linear infinite}@keyframes dash{to{stroke-dashoffset:-56}}}
+.hero .eyebrow{font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+.sec{margin-top:72px}
+.routes,.feats,.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+.rt{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:4px}
+.rt .code{font:700 30px var(--display)}.rt .meta{color:var(--muted);font-size:14px}.rt .btn{margin-top:14px;align-self:flex-start}
+.feat{border-top:3px solid var(--amber);padding-top:16px}.feat h3{font-size:21px;margin-bottom:6px}.feat p,.step p{color:var(--muted)}
+.step .n{width:38px;height:38px;border-radius:50%;background:var(--action);color:var(--on-action);display:grid;place-items:center;font:700 17px var(--display);margin-bottom:12px}
+.step h3{font-size:20px;margin-bottom:4px}
+.auth.wide{max-width:540px}.two{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+.link{background:none;border:0;color:var(--action);font:700 14px var(--body);cursor:pointer;text-decoration:underline;padding:0}
+.alt{margin-top:14px;font-size:14px;color:var(--muted);text-align:center}
+footer{border-top:1px solid var(--line);margin-top:48px;padding:28px 24px;text-align:center;color:var(--muted);font-size:14px}
+@media (max-width:860px){.routes,.feats,.steps,.two{grid-template-columns:1fr}.sec{margin-top:52px}}
+/* ---- v2 theme: calmer sizes, sharper look ---- */
+html{font-size:15px}
+body{line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--surface) 90%,transparent);backdrop-filter:blur(10px)}
+h1,h2,h3{letter-spacing:-.02em;font-weight:800}
+.bar{padding:12px 24px}
+.brand{font:800 18px var(--display);letter-spacing:-.01em}
+.brand svg{width:34px;height:34px;padding:7px;border-radius:10px;background:var(--action);color:var(--on-action)}
+nav button{font-size:14px;padding:8px 12px}
+main{padding:24px 24px 56px}
+h2{font-size:26px;margin-bottom:4px}
+.sec{margin-top:56px}.sec h2{font-size:24px}
+.banner{position:relative;overflow:hidden;border-radius:22px;padding:60px 48px;color:#fff;background:radial-gradient(900px 400px at 85% 0%,#1B8AA0 0%,transparent 60%),linear-gradient(135deg,#0A2236,#0E3A54 60%,#0F5E73)}
+.banner-in{position:relative;z-index:1;max-width:560px}
+.banner .eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#F2B01E;margin-bottom:14px}
+.banner h1{font-size:clamp(30px,4.6vw,50px);line-height:1.08;font-weight:800;letter-spacing:-.025em}
+.banner .lead{margin:16px 0 26px;font-size:17px;color:#CFE3EC;max-width:46ch}
+.banner-art{position:absolute;right:-20px;top:0;height:100%;width:62%;opacity:.55}
+.btn{font-size:15px;padding:11px 20px;border-radius:10px}
+.btn.amber{background:#F2B01E;color:#0E2233}
+.btn.outline{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.45)}
+.auth,.rt,.pass,.cabin,.tbl,.flight{box-shadow:0 1px 2px rgba(10,34,54,.06),0 8px 24px rgba(10,34,54,.05)}
+.rt{transition:transform .2s}.rt:hover{transform:translateY(-3px)}
+.rt .code{font-size:22px}.flight .no{font-size:17px}.pass .big{font-size:24px}.pnr{font-size:28px}
+.feat h3{font-size:18px}.step h3{font-size:17px}.auth h3{font-size:19px}td.no{font-size:16px}
+footer{line-height:1.8}
+@media (prefers-reduced-motion:no-preference){.banner-art .a1{animation:dash 3s linear infinite}}
+@media (max-width:860px){.banner{padding:38px 24px}.banner-art{opacity:.25;width:100%}}
+</style>
+</head>
+<body>
+<header><div class="bar">
+  <div class="brand"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg>Kilele Airways</div>
+  <nav role="tablist" aria-label="Portal sections">
+    <button role="tab" id="t-home" aria-selected="true" onclick="go('home')">Home</button>
+    <button role="tab" id="t-book" aria-selected="false" onclick="go('book')">Book a seat</button>
+    <button role="tab" id="t-crew" aria-selected="false" onclick="go('crew')">Crew terminal</button>
+  </nav>
+  <div id="who" class="who" hidden><span id="who-name"></span><button class="btn ghost sm" onclick="logout()">Sign out</button></div>
+</div></header>
+
+<main>
+<div id="demo" class="demo" role="status" hidden></div>
+<section id="p-home" class="panel on">
+  <div class="banner">
+    <svg class="banner-art" viewBox="0 0 500 300" preserveAspectRatio="xMaxYMid slice" aria-hidden="true"><path class="a1" d="M20 260 Q250 -40 480 200" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 8"/><path d="M60 295 Q290 60 500 140" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.5"/><circle cx="20" cy="260" r="7" fill="#F2B01E"/><circle cx="480" cy="200" r="7" fill="#F2B01E"/><text x="30" y="286" fill="#fff" font-size="14" font-weight="700">NBO</text><text x="440" y="228" fill="#fff" font-size="14" font-weight="700">LHR</text></svg>
+    <div class="banner-in">
+      <p class="eyebrow">Nairobi · Mombasa · London · Dubai</p>
+      <h1>Fly with ease.<br>Choose your seat.</h1>
+      <p class="lead">Book in minutes, pick the exact seat you want, and get your boarding pass the moment you confirm.</p>
+      <div class="row-btns"><button class="btn amber" onclick="go('book')">Book a seat</button><button class="btn outline" onclick="go('crew')">Crew terminal</button></div>
+    </div>
+  </div>
+  <div class="sec"><h2>Next departures</h2><p class="sub">Upcoming flights open for booking.</p>
+    <div class="tbl"><table><thead><tr><th>Flight</th><th>Route</th><th>Departs</th><th>Status</th></tr></thead><tbody id="board"><tr><td colspan="4" class="empty">Loading flights…</td></tr></tbody></table></div></div>
+  <div class="sec"><h2>Popular routes from Nairobi</h2><p class="sub">Tap a route to see upcoming flights.</p>
+    <div class="routes">
+      <div class="rt"><div class="code">NBO to MBA</div><div>Nairobi to Mombasa</div><div class="meta">About 1 hour · Domestic</div><button class="btn ghost" onclick="go('book')">Book this route</button></div>
+      <div class="rt"><div class="code">NBO to LHR</div><div>Nairobi to London</div><div class="meta">About 8 h 45 min · Long haul</div><button class="btn ghost" onclick="go('book')">Book this route</button></div>
+      <div class="rt"><div class="code">NBO to DXB</div><div>Nairobi to Dubai</div><div class="meta">About 5 hours · Gulf</div><button class="btn ghost" onclick="go('book')">Book this route</button></div>
+    </div></div>
+  <div class="sec"><h2>Why fly with us</h2>
+    <div class="feats">
+      <div class="feat"><h3>Your exact seat</h3><p>See the cabin map for your flight and pick the seat you want. Taken seats are marked so there are no surprises.</p></div>
+      <div class="feat"><h3>Instant reference</h3><p>Your booking reference appears on your boarding pass the moment you confirm.</p></div>
+      <div class="feat"><h3>One account</h3><p>Sign in once to book. Crew have their own terminal with their upcoming assignments.</p></div>
+    </div></div>
+  <div class="sec"><h2>How booking works</h2>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Create an account</h3><p>It takes a minute. We need your name and passport number to issue tickets in your name.</p></div>
+      <div class="step"><div class="n">2</div><h3>Choose a flight</h3><p>Pick from upcoming departures and see aircraft seating for that flight.</p></div>
+      <div class="step"><div class="n">3</div><h3>Pick your seat</h3><p>Tap a seat, confirm, and your boarding pass is ready.</p></div>
+    </div></div>
+</section>
+
+<section id="p-book" class="panel">
+  <h2>Book a seat</h2>
+  <p class="sub">Sign in, choose a flight, then tap a seat on the cabin map.</p>
+  <div id="m-auth" class="auth">
+    <h3>Member sign in</h3>
+    <label for="m-email">Email address</label><input id="m-email" type="email" placeholder="sample@dreamcoder.com" autocomplete="email">
+    <label for="m-pass">Password</label><input id="m-pass" type="password" autocomplete="current-password" placeholder="eg sample123"><p id="m-err" class="err" role="alert" ></p>
+    <button class="btn" onclick="login('member')">Sign in</button>
+    <p class="alt">New here? <button class="link" onclick="authMode('up')">Create an account</button></p>
+  </div>
+  <div id="m-signup" class="auth wide" hidden>
+    <h3>Create your account</h3>
+    <div class="two"><div><label for="s-first">First name</label><input id="s-first" autocomplete="given-name"></div><div><label for="s-last">Last name</label><input id="s-last" autocomplete="family-name"></div></div>
+    <label for="s-email">Email address</label><input id="s-email" type="email" autocomplete="email">
+    <div class="two"><div><label for="s-phone">Phone (optional)</label><input id="s-phone" type="tel" autocomplete="tel"></div><div><label for="s-dob">Date of birth</label><input id="s-dob" type="date" autocomplete="bday"></div></div>
+    <label for="s-passport">Passport number</label><input id="s-passport" autocomplete="off">
+    <div class="two"><div><label for="s-pass">Password (8+ characters)</label><input id="s-pass" type="password" autocomplete="new-password"></div><div><label for="s-pass2">Confirm password</label><input id="s-pass2" type="password" autocomplete="new-password"></div></div>
+    <p id="s-err" class="err" role="alert"></p>
+    <button class="btn" onclick="signup()">Create account</button>
+    <p class="alt">Already a member? <button class="link" onclick="authMode('in')">Sign in</button></p>
+  </div>
+  <div id="m-portal" hidden>
+    <div class="book">
+      <div>
+        <div id="flights" class="flights" aria-label="Available flights"></div>
+        <div id="cabin" class="cabin" hidden>
+          <h3>Choose your seat</h3>
+          <div class="legend"><span><i></i>Available</span><span><i class="s"></i>Yours</span><span><i class="t"></i>Taken</span></div>
+          <div id="seats" class="seats"></div>
+        </div>
+      </div>
+      <aside class="pass" aria-live="polite">
+        <div class="top">
+          <div class="lbl">Your boarding pass</div>
+          <div id="ps-flight" class="big">No flight yet</div>
+          <div id="ps-route" class="lbl">Choose a flight from the list.</div>
+          <div class="grid"><div><div class="lbl">Seat</div><div id="ps-seat" class="big">–</div></div><div><div class="lbl">Departs</div><div id="ps-time" class="big" style="font-size:18px">–</div></div></div>
+        </div>
+        <div class="tear">
+          <div id="ps-ok" hidden><div class="ok">Ticket issued</div><div class="lbl">Booking reference</div><div id="ps-pnr" class="pnr"></div></div>
+          <button id="ps-btn" class="btn" disabled onclick="book()">Confirm seat</button>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="p-crew" class="panel">
+  <h2>Crew terminal</h2>
+  <p class="sub">Enter your staff code to see your assigned flights.</p>
+  <div id="c-auth" class="auth">
+    <h3>Crew sign in</h3>
+    <label for="c-code">Staff ID</label><input id="c-code" type="text" placeholder="eg 123456" autocomplete="off">
+    <p id="c-err" class="err" role="alert"></p>
+    <button class="btn" onclick="login('crew')">View my roster</button>
+  </div>
+  <div id="c-portal" hidden>
+    <p class="sub">Roster for <strong id="c-name">crew member</strong></p>
+    <div class="tbl"><table><thead><tr><th>Flight</th><th>From</th><th>To</th><th>Departure</th><th>Status</th></tr></thead><tbody id="roster"></tbody></table></div>
+  </div>
+</section>
+</main>
+<footer><strong>Kilele Airways</strong> · Rise above the everyday<br>© 2026 Kilele Airways · Jomo Kenyatta International Airport, Nairobi, Kenya</footer>
+
+<script>
+// Each call tries the PHP backend first and falls back to sample data when it is not reachable.
+const MOCK={
+  flights:[
+    {flight_id:1,flight_number:'DG 204',departure_airport:'NBO',dep_city:'Nairobi',arrival_airport:'MBA',arr_city:'Mombasa',departure_time:'30 Oct 2026, 07:15'},
+    {flight_id:2,flight_number:'DG 318',departure_airport:'NBO',dep_city:'Nairobi',arrival_airport:'LHR',arr_city:'London',departure_time:'31 Oct 2026, 22:40'},
+    {flight_id:3,flight_number:'DG 561',departure_airport:'NBO',dep_city:'Nairobi',arrival_airport:'DXB',arr_city:'Dubai',departure_time:'2 Nov 2026, 02:05'}],
+  roster:[
+    {flight_number:'DG 204',departure_airport:'NBO',arrival_airport:'MBA',departure_time:'30 Oct 2026, 07:15',status:'on time'},
+    {flight_number:'DG 318',departure_airport:'NBO',arrival_airport:'LHR',departure_time:'31 Oct 2026, 22:40',status:'scheduled'},
+    {flight_number:'DG 319',departure_airport:'LHR',arrival_airport:'NBO',departure_time:'2 Nov 2026, 11:30',status:'delayed'},
+    {flight_number:'DG 204',departure_airport:'NBO',arrival_airport:'MBA',departure_time:'4 Nov 2026, 07:15',status:'scheduled'}]
+};
+const ROWS=10,COLS=['A','B','C','D'];
+function mockSeats(fid){const out=[];let n=0;for(let r=1;r<=ROWS;r++)for(const c of COLS){n++;out.push({seat_id:fid*100+n,seat_number:r+c,taken:(n*7+fid*5)%4===0?1:0});}return out;}
+async function api(action,opts,fallback){
+  const demo=why=>{const b=$('demo');b.hidden=false;b.textContent='Showing sample data, not your database. api.php problem: '+why;return fallback();};
+  let r;
+  try{r=await fetch('api.php?action='+action,opts);}catch(e){return demo('the request failed. Is this page opened as a file, or served from a different place than api.php?');}
+  if(r.status===404)return demo('api.php was not found next to this page (404).');
+  const t=await r.text();
+  try{return JSON.parse(t);}catch(e){return demo('it did not return JSON (HTTP '+r.status+'): '+t.slice(0,160).replace(/\s+/g,' '));}
+}
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $=id=>document.getElementById(id);
+const list=x=>Array.isArray(x)?x:[];
+let flights=[],flight=null,seat=null;
+
+function go(t){
+  ['home','book','crew'].forEach(k=>{$('p-'+k).classList.toggle('on',k===t);$('t-'+k).setAttribute('aria-selected',k===t)});
+  try{history.replaceState(null,'','#'+t)}catch(e){}
+}
+const post=b=>({method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)});
+async function login(role){
+  const m=role==='member',btn=document.querySelector(m?'#m-auth .btn':'#c-auth .btn'),err=$(m?'m-err':'c-err');
+  err.textContent='';btn.disabled=true;
+  const res=m?await api('login_member',post({email:$('m-email').value,password:$('m-pass').value}),()=>({success:true,name:'Demo member'}))
+            :await api('login_crew',post({code:$('c-code').value}),()=>({success:true,name:'Captain David Kimani'}));
+  btn.disabled=false;
+  if(!res.success){err.textContent=res.error||'Sign in failed.';return;}
+  $('m-pass').value='';
+  await enter(role,res.name);
+}
+async function enter(role,name){
+  $('who-name').textContent=name||'';$('who').hidden=false;
+  if(role==='member'){
+    $('m-auth').hidden=true;$('m-signup').hidden=true;$('m-portal').hidden=false;
+    flights=list(await api('get_flights',{},()=>MOCK.flights));
+    $('flights').innerHTML=flights.map(f=>`<button class="flight" aria-pressed="false" data-id="${esc(f.flight_id)}"><span class="no">${esc(f.flight_number)}</span><span class="path">${esc(f.dep_city)} <span>(${esc(f.departure_airport)})</span> to ${esc(f.arr_city)} <span>(${esc(f.arrival_airport)})</span></span><span class="time">${esc(f.departure_time)}</span></button>`).join('')||'<p class="empty">No flights are open for booking right now.</p>';
+    document.querySelectorAll('.flight').forEach(b=>b.onclick=()=>pick(b.dataset.id));
+  }else{
+    $('c-name').textContent=name||'crew member';
+    $('c-auth').hidden=true;$('c-portal').hidden=false;
+    const rows=list(await api('get_pilot_roster',{},()=>MOCK.roster));
+    $('roster').innerHTML=rows.map(r=>{const s=String(r.status).toLowerCase();return `<tr><td class="no">${esc(r.flight_number)}</td><td>${esc(r.departure_airport)}</td><td>${esc(r.arrival_airport)}</td><td>${esc(r.departure_time)}</td><td><span class="chip ${s.replace(/\s+/g,'-')}">${esc(s.replace(/^./,c=>c.toUpperCase()))}</span></td></tr>`}).join('')||'<tr><td colspan="5" class="empty">No flights assigned yet.</td></tr>';
+  }
+}
+async function pick(id){
+  flight=flights.find(f=>String(f.flight_id)===String(id));seat=null;
+  document.querySelectorAll('.flight').forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===String(id)));
+  $('ps-flight').textContent=flight.flight_number;
+  $('ps-route').textContent=`${flight.dep_city} to ${flight.arr_city}`;
+  $('ps-time').textContent=flight.departure_time;
+  $('ps-ok').hidden=true;
+  updatePass();
+  const all=list(await api('get_seats&flight_id='+id,{},()=>mockSeats(+id)));
+  const parse=s=>/^(\d+)([A-Z]+)$/.exec(s.seat_number||'');
+  const ok=all.filter(parse);
+  const rowsN=[...new Set(ok.map(s=>+parse(s)[1]))].sort((a,b)=>a-b);
+  const cols=[...new Set(ok.map(s=>parse(s)[2]))].sort();
+  const mid=Math.ceil(cols.length/2);
+  const by=new Map(ok.map(s=>[s.seat_number,s]));
+  $('seats').style.gridTemplateColumns=`repeat(${mid},1fr) 2.4rem repeat(${Math.max(cols.length-mid,1)},1fr)`;
+  let h='';
+  rowsN.forEach(r=>cols.forEach((c,i)=>{
+    const l=r+c,s=by.get(l),free=s&&!Number(s.taken);
+    h+=s?`<button class="seat" ${free?`data-sid="${esc(s.seat_id)}" data-l="${l}"`:'disabled'} aria-label="Seat ${l}${free?'':', taken'}">${l}</button>`:'<span></span>';
+    if(i===mid-1)h+=`<span class="rn" aria-hidden="true">${r}</span>`;
+  }));
+  $('seats').innerHTML=h||'<p class="empty" style="grid-column:1/-1">The seat map isn’t available for this flight yet.</p>';$('cabin').hidden=false;
+  document.querySelectorAll('.seat[data-sid]').forEach(b=>b.onclick=()=>{
+    document.querySelectorAll('.seat').forEach(x=>x.classList.remove('sel'));
+    b.classList.add('sel');seat={id:b.dataset.sid,label:b.dataset.l};updatePass();});
+}
+function updatePass(){$('ps-seat').textContent=seat?seat.label:'–';$('ps-btn').disabled=!(flight&&seat);}
+async function book(){
+  if(!flight||!seat)return;
+  const res=await api('book_seat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({flight_id:flight.flight_id,seat_id:seat.id})},
+    ()=>({success:true,pnr:Math.random().toString(36).slice(2,8).toUpperCase()}));
+  if(res&&res.success){
+    $('ps-pnr').textContent=res.pnr;$('ps-ok').hidden=false;
+    const label=seat.label;await pick(flight.flight_id);
+    $('ps-ok').hidden=false;$('ps-seat').textContent=label;$('ps-btn').disabled=true;
+  }else{alert(res&&res.error?res.error:'Booking failed. Please try again.');if(res&&/sign in/i.test(res.error||''))logout();else pick(flight.flight_id);}
+}
+function authMode(m){$('m-auth').hidden=m!=='in';$('m-signup').hidden=m!=='up';}
+async function signup(){
+  const g=id=>$(id).value.trim(),err=$('s-err'),btn=document.querySelector('#m-signup .btn');
+  err.textContent='';
+  if($('s-pass').value!==$('s-pass2').value){err.textContent='Passwords do not match.';return;}
+  btn.disabled=true;
+  const res=await api('register',post({first_name:g('s-first'),last_name:g('s-last'),email:g('s-email'),phone:g('s-phone'),passport_number:g('s-passport'),date_of_birth:$('s-dob').value,password:$('s-pass').value}),()=>({success:true,name:g('s-first')+' '+g('s-last')}));
+  btn.disabled=false;
+  if(!res.success){err.textContent=res.error||'Could not create the account.';return;}
+  $('s-pass').value='';$('s-pass2').value='';
+  await enter('member',res.name);
+}
+async function logout(){
+  await api('logout',post({}),()=>({success:true}));
+  flights=[];flight=null;seat=null;
+  $('who').hidden=true;
+  ['m','c'].forEach(k=>{$(k+'-auth').hidden=false;$(k+'-portal').hidden=true;$(k+'-err').textContent='';});
+  $('m-signup').hidden=true;$('s-err').textContent='';
+  $('m-pass').value='';$('cabin').hidden=true;$('ps-ok').hidden=true;
+  $('ps-flight').textContent='No flight yet';$('ps-route').textContent='Choose a flight from the list.';$('ps-time').textContent='–';
+  updatePass();go('home');
+}
+document.querySelectorAll('.auth input').forEach(i=>i.addEventListener('keydown',e=>{if(e.key==='Enter')i.closest('.auth').querySelector('.btn').click();}));
+async function loadBoard(){
+  const f=list(await api('get_flights',{},()=>MOCK.flights)).slice(0,5);
+  $('board').innerHTML=f.length?f.map(x=>{const st=String(x.status||'scheduled').toLowerCase();return `<tr><td class="no">${esc(x.flight_number)}</td><td>${esc(x.dep_city)} (${esc(x.departure_airport)}) to ${esc(x.arr_city)} (${esc(x.arrival_airport)})</td><td>${esc(x.departure_time)}</td><td><span class="chip ${esc(st)}">${esc(st.charAt(0).toUpperCase()+st.slice(1))}</span></td></tr>`}).join(''):'<tr><td colspan="4" class="empty">No upcoming flights right now.</td></tr>';
+}
+loadBoard();
+const h=location.hash.slice(1);if(['home','book','crew'].includes(h))go(h);
+(async()=>{
+  const me=await api('me',{},()=>({role:null}));
+  if(me&&(me.role==='member'||me.role==='crew')){
+    await enter(me.role,me.name);
+    if(!['home','book','crew'].includes(h))go(me.role==='member'?'book':'crew');
+  }
+})();
+</script>
+</body>
+</html>
